@@ -12,3 +12,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::middleware('auth:api')->post('/events', 'EventController@create');
+Route::middleware('auth:api')->put('/events/{event}', 'EventController@create');
+
+Route::middleware('auth:api')->post('/login/status', 'LoginController@check');
+Route::post('login', 'LoginController@check')->name('login');
