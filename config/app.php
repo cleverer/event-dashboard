@@ -211,4 +211,6 @@ return [
 
     ],
 
+    'password_hash' => env('PASSWORD_HASH'),
+
 ];
