@@ -11,7 +11,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body>
-        <main class="container pb-3">
+        <main class="container py-3">
             @yield("content")
         </main>
     </body>
