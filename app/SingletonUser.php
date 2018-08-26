@@ -8,9 +8,13 @@ class SingletonUser implements Authenticatable
 {
     private static $user = null;
 
-    public function getAuthIdentifierName() {}
+    public function getAuthIdentifierName() {
+        return "auth_id";
+    }
 
-    public function getAuthIdentifier() {}
+    public function getAuthIdentifier() {
+        return "singleton";
+    }
 
     public function getAuthPassword() {
         return config('app.password_hash');

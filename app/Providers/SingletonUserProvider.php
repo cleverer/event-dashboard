@@ -32,11 +32,13 @@ class SingletonUserProvider extends ServiceProvider implements UserProvider
     }
 
     public function retrieveById($identifier) {
-        return SingletonUser::getUser();
+        $user = SingletonUser::getUser();
+        if ($identifier == $user->getAuthIdentifier()) {
+            return $user;
+        }
     }
 
     public function retrieveByToken($identifier, $token) {
-        return SingletonUser::getUser();
     }
 
     public function updateRememberToken(Authenticatable $user, $token) {}
