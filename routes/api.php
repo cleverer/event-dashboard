@@ -14,10 +14,10 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => ['sessionAuth', 'auth:api']], function() {
-    Route::middleware('auth:api')->post('/events', 'EventController@create');
-    Route::middleware('auth:api')->put('/events/{event}', 'EventController@create');
+    Route::post('/events', 'EventController@create');
+    Route::put('/events/{event}', 'EventController@create');
 
-    Route::middleware('auth:api')->post('/login/status', 'LoginController@check');
+    Route::post('/login/status', 'LoginController@check');
 });
 
 Route::group(['middleware' => ['sessionAuth']], function() {
