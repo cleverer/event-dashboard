@@ -7,20 +7,25 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public static function check(Request $request) {
+
+    private static function respond(int $status) {
         return response()->json([
-            'status' => 200,
-        ]);
+            'status' => $status,
+        ], $status);
+    }
+
+    public static function check(Request $request) {
+        if (Auth::check()) {
+            return static::respond(200);
+        }
+        return static::respond(401);
     }
 
     public static function login(Request $request) {
         $credentials = $request->only('password');
-        $status = 401;
-        if (Auth::attempt($credentials)) {
-            $status = 200;
+        if (Auth::check() || Auth::attempt($credentials)) {
+            return static::respond(200);
         }
-        return response()->json([
-            'status' => $status,
-        ], $status);
+        return static::respond(401);
     }
 }

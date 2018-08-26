@@ -16,10 +16,9 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['sessionAuth', 'auth:api']], function() {
     Route::post('/events', 'EventController@create');
     Route::put('/events/{event}', 'EventController@create');
-
-    Route::post('/login/status', 'LoginController@check');
 });
 
 Route::group(['middleware' => ['sessionAuth']], function() {
+    Route::post('/login/status', 'LoginController@login');
     Route::post('login', 'LoginController@login')->name('login');
 });
