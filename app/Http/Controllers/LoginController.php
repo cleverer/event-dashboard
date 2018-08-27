@@ -11,7 +11,6 @@ class LoginController extends Controller
     private static function respond(int $status) {
         return response()->json([
             'status' => $status,
-            'session' => session()->all(),
         ], $status);
     }
 
