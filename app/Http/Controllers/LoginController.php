@@ -11,11 +11,12 @@ class LoginController extends Controller
     private static function respond(int $status) {
         return response()->json([
             'status' => $status,
+            'session' => session()->all(),
         ], $status);
     }
 
     public static function check(Request $request) {
-        if (Auth::check()) {
+        if (Auth::guard('api')->check()) {
             return static::respond(200);
         }
         return static::respond(401);
@@ -23,7 +24,8 @@ class LoginController extends Controller
 
     public static function login(Request $request) {
         $credentials = $request->only('password');
-        if (Auth::check() || Auth::attempt($credentials)) {
+        $guard = Auth::guard('api');
+        if ($guard->check() || $guard->attempt($credentials)) {
             return static::respond(200);
         }
         return static::respond(401);
