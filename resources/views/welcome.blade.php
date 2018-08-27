@@ -2,4 +2,5 @@
 
 @section('content')
     @include('components.events')
+    @include('layout.add')
 @endsection

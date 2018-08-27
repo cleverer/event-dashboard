@@ -36,3 +36,40 @@ h1 {
 	-moz-column-count: 2;
 	-moz-column-gap: 30px;
 }
+
+
+.ui-datepicker {
+	width: 100%;
+	font-size: 0.85em;
+	line-height: 1.25;
+}
+.ui-widget-content, .ui-widget.ui-widget-content {
+	background-color: transparent;
+	border: 0;
+	color: inherit;
+}
+.ui-datepicker th {
+	font-weight: normal;
+	padding: 0.5em 0.3em 0.3em 0.3em;
+}
+.ui-datepicker td {
+	padding: 2px 4px;
+}
+.registration-details {
+	display: none;
+}
+.registration-details .form-check-input {
+	margin-top: 0.4rem;
+}
+#add-description {
+	height: 150px;
+}
+#add-event-form {
+	display: none;
+}
+#auth-error {
+	display: none;
+}
+#add-event-card {
+	animation: width 0.5s;
+}
