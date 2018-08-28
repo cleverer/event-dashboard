@@ -9,14 +9,12 @@ require('./bootstrap');
 
 $(document).ready(function() {
 	
-/*
 	var date = new Date($('#add-date').val());
 	$(".datepicker").datepicker({
 		altField: '#add-date',
 		defaultDate: date,
 		minDate: 0,
 	});
-*/
 	
 	$("#add-registration-required").on("change", function(event) {
 		if($(this).is(":checked")) {

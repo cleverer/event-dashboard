@@ -37,23 +37,24 @@ h1 {
 	-moz-column-gap: 30px;
 }
 
-
-.ui-datepicker {
-	width: 100%;
-	font-size: 0.85em;
-	line-height: 1.25;
-}
-.ui-widget-content, .ui-widget.ui-widget-content {
-	background-color: transparent;
-	border: 0;
-	color: inherit;
-}
-.ui-datepicker th {
-	font-weight: normal;
-	padding: 0.5em 0.3em 0.3em 0.3em;
-}
-.ui-datepicker td {
-	padding: 2px 4px;
+#add-event-form {
+	.ui-datepicker {
+		width: 100%;
+		font-size: 0.85em;
+		line-height: 1.25;
+	}
+	.ui-widget-content, .ui-widget.ui-widget-content {
+		background-color: transparent;
+		border: 0;
+		color: inherit;
+	}
+	.ui-datepicker th {
+		font-weight: normal;
+		padding: 0.5em 0.3em 0.3em 0.3em;
+	}
+	.ui-datepicker td {
+		padding: 2px 4px;
+	}
 }
 .registration-details {
 	display: none;
