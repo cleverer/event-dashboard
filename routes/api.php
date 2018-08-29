@@ -19,6 +19,6 @@ Route::group(['middleware' => ['sessionAuth']], function() {
 
 	Route::group(['middleware' => ['auth:api']], function() {
 	    Route::post('/events', 'EventController@create');
-	    Route::put('/events/{event}', 'EventController@create');
+	    Route::put('/event/{event}', 'EventController@update');
 	});
 });

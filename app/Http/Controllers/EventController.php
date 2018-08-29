@@ -10,4 +10,8 @@ class EventController extends Controller
     public static function create(Event $event) {
         return "";
     }
+
+    public static function update(Event $event) {
+        return "";
+    }
 }
