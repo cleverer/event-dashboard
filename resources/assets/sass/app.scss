@@ -37,7 +37,7 @@ h1 {
 	-moz-column-gap: 30px;
 }
 
-#add-event-form {
+#event-form {
 	.ui-datepicker {
 		width: 100%;
 		font-size: 0.85em;
@@ -56,21 +56,21 @@ h1 {
 		padding: 2px 4px;
 	}
 }
-.registration-details {
+.registration_details {
 	display: none;
 }
-.registration-details .form-check-input {
+.registration_details .form-check-input {
 	margin-top: 0.4rem;
 }
-#add-description {
+#description {
 	height: 150px;
 }
-#add-event-form {
+#event-form {
 	display: none;
 }
 #auth-error {
 	display: none;
 }
-#add-event-card {
+#event-card {
 	animation: width 0.5s;
 }

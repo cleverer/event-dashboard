@@ -13,3 +13,5 @@
 
 Route::get('/', 'WebController')->name('home');
 Route::get('/event/{event}', 'WebController');
+
+Route::post('/events', 'EventController@create');
