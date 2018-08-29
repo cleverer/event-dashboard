@@ -37,6 +37,9 @@ class Event extends Model
     }
 
     public function getFormattedTime(): string {
+	    if (is_null($this->time)) {
+		    return "";
+	    }
         $carbon = Carbon::parse($this->time);
         return $carbon->isoFormat('LT');
     }
