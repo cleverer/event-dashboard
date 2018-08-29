@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'WebController')->name('home');
+Route::get('/event/{event}', 'WebController');
