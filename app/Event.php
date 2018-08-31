@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
 class Event extends Model
@@ -22,9 +23,15 @@ class Event extends Model
         'contact_name',
         'contact_tel',
     ];
+    
+    public $raw_token = null;
 
     public function beforeSave() {
-        $this->edit_token = static::generateToken();
+	    if (is_null($this->edit_token)) {
+		    $token = static::generateToken();
+	        $this->edit_token = Hash::make($token);
+	        $this->raw_token = $token;
+        }
     }
 
     public static function generateToken(int $length = 20): string {

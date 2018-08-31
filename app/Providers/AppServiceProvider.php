@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
+
 use App\Event;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
 
         Event::saving(function (Event $event) {
             $event->beforeSave();
+        });
+        Blade::directive('editToken', function () {
+	        return '<?php if (request()->has(\'token\')) { echo \'<input type="hidden" name="token" value="\'.request(\'token\').\'">\'; } ?>';
         });
 
     }

@@ -9,7 +9,7 @@ use App\Event;
 
 class WebController extends Controller
 {
-    public function __invoke(Request $request, Event $event = null) {
+    public static function home(Request $request, Event $event = null) {
         $events = Event::whereRaw('`date` >= CURDATE()')->orderBy('date')->orderBy('time')->get();
 
         $data = [
@@ -21,5 +21,9 @@ class WebController extends Controller
         }
 
         return view('welcome', $data);
+    }
+    
+    public static function login(Request $request) {
+	    return redirect()->route('home');
     }
 }

@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'WebController')->name('home');
-Route::get('/event/{event}', 'WebController');
+Route::get('/', 'WebController@home')->name('home');
+Route::get('/login', 'WebController@login')->name('login');
+Route::get('/event/{event}', 'WebController@home')->name('event');
 
-Route::post('/events', 'EventController@create');
+Route::post('/events', 'EventController@store');
+Route::post('/event/{event}', 'EventController@update');
