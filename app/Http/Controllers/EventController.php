@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\AuthenticationException;
 use App\Event;
 
@@ -27,7 +28,7 @@ class EventController extends Controller
 	
     public static function store(Request $request) {
 
-        $data = $request->validate(static::VALIDATION_RULES);
+        $data = static::prepareValidator($request->all())->validate();
         $event = Event::create($data);
 
         if ($request->wantsJson()) {
@@ -42,12 +43,30 @@ class EventController extends Controller
 	        throw new AuthenticationException();
 	    }
 	    
-        $data = $request->validate(static::VALIDATION_RULES);
+        $data = static::prepareValidator($request->all())->validate();
         $event->fill($data)->save();
         
         if ($request->wantsJson()) {
             return $event;
         }
         return redirect()->back();
+    }
+    
+    private static function prepareValidator($data) {
+		$validator = Validator::make($data, static::VALIDATION_RULES);
+		
+		$validator->sometimes('registration_email', 'nullable|email|required_without_all:registration_tel,registration_url', function($input) {
+			return boolval($input->registration_required);
+		});
+
+		$validator->sometimes('registration_tel', 'nullable|required_without_all:registration_email,registration_url', function($input) {
+			return boolval($input->registration_required);
+		});
+
+		$validator->sometimes('registration_url', 'nullable|url|required_without_all:registration_email,registration_tel', function($input) {
+			return boolval($input->registration_required);
+		});
+		
+		return $validator;
     }
 }
