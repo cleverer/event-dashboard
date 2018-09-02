@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 use App\Event;
+use App\SingletonUser;
 
 class WebController extends Controller
 {
@@ -17,6 +19,9 @@ class WebController extends Controller
         ];
 
         if (!is_null($event) && Hash::check(request('token'), $event->edit_token)) {
+            if (!Auth::check()) {
+                Auth::login(SingletonUser::getUser());
+            }
             $data['event'] = $event;
         }
 
