@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\AuthenticationException;
 
 use App\Event;
+use App\Mail\EventCreated as EventCreatedMail;
 
 class EventController extends Controller
 {
@@ -35,6 +37,12 @@ class EventController extends Controller
         if ($request->wantsJson()) {
             return $event;
         }
+
+        $url = route('event', ['event' => $event, 'token' => $event->raw_token]);
+        $email = new EventCreatedMail($url);
+
+        Mail::to($event->contact_email)->send($email);
+
         return redirect()->route('event', ['event' => $event, 'token' => $event->raw_token]);
     }
 
