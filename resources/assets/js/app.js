@@ -9,6 +9,12 @@ require('./bootstrap');
 
 $(document).ready(function() {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
 	var date = new Date($('#date').val());
 	$(".datepicker").datepicker({
 		"altField": '#date',
@@ -39,10 +45,8 @@ function authFormSubmit(event) {
 
 	$.ajax({
 		type: "POST",
-		url:'/api/login',
-		data: {
-			'password': $("#auth-password").val()
-		}
+		url:'/login',
+		data: $('#auth-form').serializeArray()
 	})
 		.always(function() {
 
@@ -71,7 +75,7 @@ function authFormSubmit(event) {
 function checkLogin() {
 
 	$.post({
-		url:'/api/login/status',
+		url:'/login/status',
 	}).always(function(data, textStatus, jqXHR) {
 
 		if (data.status == 200) {

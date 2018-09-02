@@ -2,6 +2,7 @@
 	<div class="form-row flex-column flex-sm-row">
 		<div class="form-group col-auto col-sm">
 			<input type="password" placeholder="Passwort" id="auth-password" name="auth-password" class="form-control">
+			@csrf
 		</div>
 		<div class="col-auto mb-3"><button id="auth-form-submit" type="submit" class="btn btn-block btn-light">Login</button></div>
 	</div>

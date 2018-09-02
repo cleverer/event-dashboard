@@ -15,7 +15,7 @@ class LoginController extends Controller
     }
 
     public static function check(Request $request) {
-        if (Auth::guard('api')->check()) {
+        if (Auth::guard()->check()) {
             return static::respond(200);
         }
         return static::respond(401);
@@ -23,7 +23,7 @@ class LoginController extends Controller
 
     public static function login(Request $request) {
         $credentials = $request->only('password');
-        $guard = Auth::guard('api');
+        $guard = Auth::guard();
         if ($guard->check() || $guard->attempt($credentials)) {
             return static::respond(200);
         }
