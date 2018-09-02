@@ -41,7 +41,7 @@ class EventController extends Controller
         $url = route('event', ['event' => $event, 'token' => $event->raw_token]);
         $email = new EventCreatedMail($url);
 
-        Mail::to($event->contact_email)->send($email);
+        Mail::to($event->contact_email)->queue($email);
 
         return redirect()->route('event', ['event' => $event, 'token' => $event->raw_token]);
     }
