@@ -27,7 +27,15 @@ class WebController extends Controller
 
         return view('welcome', $data);
     }
-    
+
+    public static function modifyEvent(Request $request, Event $event) {
+        if ($request->submit == 'delete') {
+            return EventController::remove($request, $event);
+        } else {
+            return EventController::update($request, $event);
+        }
+    }
+
     public static function login(Request $request) {
 	    return redirect()->route('home');
     }

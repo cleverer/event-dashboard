@@ -48,9 +48,7 @@ class EventController extends Controller
 
     public static function update(Request $request, Event $event) {
 
-	    if (!Hash::check(request('token'), $event->edit_token)) {
-	        throw new AuthenticationException();
-	    }
+        static::checkToken($request, $event);
 
         $data = static::prepareValidator($request->all())->validate();
         $event->fill($data)->save();
@@ -59,6 +57,17 @@ class EventController extends Controller
             return $event;
         }
         return redirect()->back();
+    }
+
+    public static function remove(Request $request, Event $event) {
+        static::checkToken($request, $event);
+
+        $event->delete();
+
+        if ($request->wantsJson()) {
+            return $event;
+        }
+        return redirect()->route('home');
     }
 
     private static function prepareValidator($data) {
@@ -77,5 +86,11 @@ class EventController extends Controller
 		});
 
 		return $validator;
+    }
+
+    private static function checkToken(Request $request, Event $event) {
+	    if (!Hash::check($request->token, $event->edit_token)) {
+	        throw new AuthenticationException();
+	    }
     }
 }
