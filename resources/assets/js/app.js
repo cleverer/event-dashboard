@@ -46,7 +46,9 @@ function authFormSubmit(event) {
 	$.ajax({
 		type: "POST",
 		url:'/login',
-		data: $('#auth-form').serializeArray()
+		data: {
+			'password': $("#auth-password").val()
+		}
 	})
 		.always(function() {
 
