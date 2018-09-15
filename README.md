@@ -4,7 +4,7 @@ A simple dashboard to publish events.
 ## Requirements
 - [composer](https://getcomposer.org)
 - npm ([node.js](https://nodejs.org/))
-- Further requirements: https://laravel.com/docs/5.6#server-requirements
+- Further requirements: [Laravel Requirements](https://laravel.com/docs/5.6#server-requirements)
 
 ## Installation
 
