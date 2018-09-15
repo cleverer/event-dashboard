@@ -13,16 +13,18 @@ Composer and npm are assumed working.
 1. Clone the repository. The webroot should point to the public folder of the repository, but the php open_dir should include the full repo.
 2. Duplicate the file _.env.example_ and rename it to _.env_.
     1. Fill out all config options except `APP_KEY`.
-3. Execute the following commands:  
-```shell
-composer install --optimize-autoloader --no-dev;
-npm install;
-php artisan key:generate;
-npm run prod;
-php artisan migrate;
-php artisan config:cache;
-php artisan route:cache;
-```
+3. Execute the following commands:
+
+    ```shell
+    composer install --optimize-autoloader --no-dev;
+    npm install;
+    php artisan key:generate;
+    npm run prod;
+    php artisan migrate;
+    php artisan config:cache;
+    php artisan route:cache;
+    ```
+    
 4. Enjoy!
 
 ## Updating
