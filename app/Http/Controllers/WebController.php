@@ -18,11 +18,15 @@ class WebController extends Controller
             'events' => $events,
         ];
 
-        if (!is_null($event) && Hash::check(request('token'), $event->edit_token)) {
-            if (!Auth::check()) {
-                Auth::login(SingletonUser::getUser());
+        if (!is_null($event)) {
+            if (Hash::check(request('token'), $event->edit_token)) {
+                if (!Auth::check()) {
+                    Auth::login(SingletonUser::getUser());
+                }
+                $data['event'] = $event;
+            } else {
+                abort(404);
             }
-            $data['event'] = $event;
         }
 
         return view('welcome', $data);
