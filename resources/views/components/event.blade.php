@@ -4,7 +4,7 @@
 	</h3>
 	<div class="card-body">
 		<h4 class="card-title">{{ $event->title }}</h4>
-		<p class="card-text">{{ nl2br($event->description) }}</p>
+		<p class="card-text">{!! nl2br(htmlspecialchars($event->description)) !!}</p>
 	</div>
 	<ul class="list-group list-group-flush">
 		@if(!is_null($event->time))
