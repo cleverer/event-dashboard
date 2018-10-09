@@ -52,12 +52,6 @@
 				<input type="email" id="contact_email" class="form-control" name="contact_email" value="{{ old('contact_email') ?? $event->contact_email ?? "" }}" required>
 			</div>
 			<h3>Anmeldung</h3>
-			<div class="form-check form-group">
-				<label class="form-check-label">
-					<input class="form-check-input" type="checkbox" value="1" id="registration_required" name="registration_required"{{ (old('registration_required') == 1 || (isset($event) && $event->registration_required)) ? " checked" : "" }}>
-					Anmeldung erforderlich
-				</label>
-			</div>
 			<div class="registration_details">
 				<div class="form-group">
 					<label for="registration_email">per E-mail an:</label>

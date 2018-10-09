@@ -23,14 +23,6 @@ $(document).ready(function() {
 		"minDate": 0,
 	});
 
-	$("#registration_required").on("change", function(event) {
-		if($(this).is(":checked")) {
-			$(".registration_details").slideDown();
-		} else {
-			$(".registration_details").slideUp();
-		}
-	}).trigger('change');
-
 	$("#auth-form").on("submit", authFormSubmit);
 
 	checkLogin();
