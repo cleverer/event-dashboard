@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
 class Event extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'title',
         'date',
@@ -23,7 +26,18 @@ class Event extends Model
         'contact_name',
         'contact_tel',
     ];
-    
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
     public $raw_token = null;
 
     public function beforeSave() {
