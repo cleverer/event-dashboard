@@ -27,6 +27,14 @@ Composer and npm are assumed working.
     
 4. Enjoy!
 
+### Queues on shared Hosting
+
+If you can't run the `queue:work` permanently (as described [here](https://laravel.com/docs/master/queues#running-the-queue-worker)), add a cronjob that runs every minute and executes the `schedule:run` artisan command. That might look like this:
+
+```shell
+* * * * * php path/to/project/artisan schedule:run >> /dev/null 2>&1
+```
+
 ## Updating
 
 Use the following commands to update an existing install:
