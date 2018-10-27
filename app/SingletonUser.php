@@ -4,29 +4,57 @@ namespace App;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 
+/**
+ * Class SingletonUser
+ * @package App
+ */
 class SingletonUser implements Authenticatable
 {
-    private static $user = null;
+	/**
+	 * @var null
+	 */
+	private static $user = null;
 
-    public function getAuthIdentifierName() {
+	/**
+	 * @return string
+	 */
+	public function getAuthIdentifierName() {
         return "auth_id";
     }
 
-    public function getAuthIdentifier() {
+	/**
+	 * @return mixed|string
+	 */
+	public function getAuthIdentifier() {
         return "singleton";
     }
 
-    public function getAuthPassword() {
+	/**
+	 * @return \Illuminate\Config\Repository|mixed|string
+	 */
+	public function getAuthPassword() {
         return config('app.password_hash');
     }
 
-    public function getRememberToken() {}
+	/**
+	 * @return string|void
+	 */
+	public function getRememberToken() {}
 
-    public function setRememberToken($value) {}
+	/**
+	 * @param string $value
+	 */
+	public function setRememberToken($value) {}
 
-    public function getRememberTokenName() {}
+	/**
+	 * @return string|void
+	 */
+	public function getRememberTokenName() {}
 
-    public static function getUser() {
+	/**
+	 * @return static
+	 */
+	public static function getUser() {
         if (is_null(static::$user)) {
             static::$user = new static();
         }

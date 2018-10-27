@@ -7,11 +7,18 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
+/**
+ * Class Event
+ * @package App
+ */
 class Event extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [
+	/**
+	 * @var array
+	 */
+	protected $fillable = [
         'title',
         'date',
         'description',
@@ -38,9 +45,16 @@ class Event extends Model
         'deleted_at'
     ];
 
-    public $raw_token = null;
+	/**
+	 * @var string|null
+	 */
+	public $raw_token = null;
 
-    public function beforeSave() {
+	/**
+	 * Hashes the edit_token
+	 * @throws \Exception
+	 */
+	public function beforeSave(): void {
 	    if (is_null($this->edit_token)) {
 		    $token = static::generateToken();
 	        $this->edit_token = Hash::make($token);
@@ -48,16 +62,27 @@ class Event extends Model
         }
     }
 
-    public static function generateToken(int $length = 20): string {
+	/**
+	 * @param int $length
+	 * @return string
+	 * @throws \Exception
+	 */
+	public static function generateToken(int $length = 20): string {
 		return bin2hex(random_bytes($length));
     }
 
-    public function getFormattedDate(): string {
+	/**
+	 * @return string
+	 */
+	public function getFormattedDate(): string {
         $carbon = Carbon::parse($this->date);
         return $carbon->isoFormat('L');
     }
 
-    public function getFormattedTime(): string {
+	/**
+	 * @return string
+	 */
+	public function getFormattedTime(): string {
 	    if (is_null($this->time)) {
 		    return "";
 	    }
@@ -65,15 +90,24 @@ class Event extends Model
         return $carbon->isoFormat('LT');
     }
 
-    public function hasContactInfo(): bool {
+	/**
+	 * @return bool
+	 */
+	public function hasContactInfo(): bool {
         return !(is_null($this->contact_name) && is_null($this->contact_tel) && is_null($this->contact_email));
     }
 
-    public function hasRegistrationInfo(): bool {
+	/**
+	 * @return bool
+	 */
+	public function hasRegistrationInfo(): bool {
         return !(is_null($this->registration_email) && is_null($this->registration_tel) && is_null($this->registration_url));
     }
 
-    public function getContactInfo(): array {
+	/**
+	 * @return array
+	 */
+	public function getContactInfo(): array {
 		$contact = [
 			htmlspecialchars($this->contact_name),
 		];
@@ -86,7 +120,10 @@ class Event extends Model
 		return array_filter($contact);
     }
 
-    public function getRegistrationInfo(): array {
+	/**
+	 * @return array
+	 */
+	public function getRegistrationInfo(): array {
 		$registration = [];
 		if (!is_null($this->registration_email) && !empty($this->registration_email)) {
 			$registration[] = '<a href="mailto:'.htmlspecialchars($this->registration_email).'">'.htmlspecialchars($this->registration_email).'</a>';
@@ -100,7 +137,11 @@ class Event extends Model
 		return array_filter($registration);
     }
 
-    private static function formatPhoneNumber(string $number): string {
+	/**
+	 * @param string $number
+	 * @return string
+	 */
+	private static function formatPhoneNumber(string $number): string {
         return preg_replace('/\s+/', '', str_replace('+', '00', $number));
     }
 }
