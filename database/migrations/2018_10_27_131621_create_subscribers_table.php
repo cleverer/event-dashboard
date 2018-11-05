@@ -18,7 +18,7 @@ class CreateSubscribersTable extends Migration
             $table->timestamps();
 
             $table->string('email')->unique();
-            $table->boolean('every')->default(false);
+            $table->boolean('everyEvent')->default(false);
             $table->boolean('monthly')->default(false);
         });
     }
