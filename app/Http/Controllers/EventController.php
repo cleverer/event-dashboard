@@ -29,7 +29,12 @@ class EventController extends Controller
 		"contact_tel" => "nullable",
     ];
 
-    public static function store(Request $request) {
+	/**
+	 * @param Request $request
+	 * @return Event|\Illuminate\Database\Eloquent\Model|\Illuminate\Http\RedirectResponse
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
+	public static function store(Request $request) {
 
         $data = static::prepareValidator($request->all())->validate();
         $event = Event::create($data);
@@ -46,7 +51,14 @@ class EventController extends Controller
         return redirect()->route('event', ['event' => $event, 'token' => $event->raw_token]);
     }
 
-    public static function update(Request $request, Event $event) {
+	/**
+	 * @param Request $request
+	 * @param Event $event
+	 * @return Event|\Illuminate\Http\RedirectResponse
+	 * @throws AuthenticationException
+	 * @throws \Illuminate\Validation\ValidationException
+	 */
+	public static function update(Request $request, Event $event) {
 
         static::checkToken($request, $event);
 
@@ -59,7 +71,14 @@ class EventController extends Controller
         return redirect()->back();
     }
 
-    public static function remove(Request $request, Event $event) {
+	/**
+	 * @param Request $request
+	 * @param Event $event
+	 * @return Event|\Illuminate\Http\RedirectResponse
+	 * @throws AuthenticationException
+	 * @throws \Exception
+	 */
+	public static function remove(Request $request, Event $event) {
         static::checkToken($request, $event);
 
         $event->delete();
@@ -88,9 +107,14 @@ class EventController extends Controller
 		return $validator;
     }
 
-    private static function checkToken(Request $request, Event $event) {
-	    if (!Hash::check($request->token, $event->edit_token)) {
-	        throw new AuthenticationException();
-	    }
-    }
+	/**
+	 * @param Request $request
+	 * @param Event $event
+	 * @throws AuthenticationException
+	 */
+	private static function checkToken(Request $request, Event $event) {
+		if (!isset($request->token) || !Hash::check($request->token, $event->edit_token)) {
+			throw new AuthenticationException();
+		}
+	}
 }

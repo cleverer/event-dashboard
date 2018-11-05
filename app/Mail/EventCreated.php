@@ -5,7 +5,6 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class EventCreated extends Mailable
 {
@@ -13,11 +12,11 @@ class EventCreated extends Mailable
 
     public $url;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
+	/**
+	 * Create a new message instance.
+	 *
+	 * @param string $url
+	 */
     public function __construct(string $url)
     {
         $this->url = $url;

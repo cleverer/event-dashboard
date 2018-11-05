@@ -9,6 +9,10 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 use App\SingletonUser;
 
+/**
+ * Class SingletonUserProvider
+ * @package App\Providers
+ */
 class SingletonUserProvider extends ServiceProvider implements UserProvider
 {
     /**
@@ -16,7 +20,7 @@ class SingletonUserProvider extends ServiceProvider implements UserProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //
     }
@@ -26,28 +30,53 @@ class SingletonUserProvider extends ServiceProvider implements UserProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
 
-    public function retrieveById($identifier) {
+	/**
+	 * @param $identifier
+	 * @return SingletonUser|null
+	 */
+	public function retrieveById($identifier): ?SingletonUser {
         $user = SingletonUser::getUser();
         if ($identifier == $user->getAuthIdentifier()) {
             return $user;
         }
+        return null;
     }
 
-    public function retrieveByToken($identifier, $token) {
+	/**
+	 * @param mixed $identifier
+	 * @param string $token
+	 * @return SingletonUser|null
+	 */
+	public function retrieveByToken($identifier, $token): ?SingletonUser {
+		return null;
     }
 
-    public function updateRememberToken(Authenticatable $user, $token) {}
+	/**
+	 * @param Authenticatable $user
+	 * @param string $token
+	 */
+	public function updateRememberToken(Authenticatable $user, $token): void
+	{}
 
-    public function retrieveByCredentials(array $credentials) {
+	/**
+	 * @param array $credentials
+	 * @return SingletonUserProvider|null
+	 */
+	public function retrieveByCredentials(array $credentials): ?SingletonUser {
         return SingletonUser::getUser();
     }
 
-    public function validateCredentials(Authenticatable $user, array $credentials) {
+	/**
+	 * @param Authenticatable $user
+	 * @param array $credentials
+	 * @return bool
+	 */
+	public function validateCredentials(Authenticatable $user, array $credentials): bool {
         if (!array_key_exists('password', $credentials)) {
             return false;
         }
