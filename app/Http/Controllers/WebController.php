@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 use App\Event;
 use App\SingletonUser;
@@ -27,17 +27,15 @@ class WebController extends Controller
 
         $data = [
             'events' => $events,
+	        'actionUrl' => '/events'
         ];
 
         if (!is_null($event)) {
-            if (Hash::check(request('token'), $event->edit_token)) {
-                if (!Auth::check()) {
-                    Auth::login(SingletonUser::getUser());
-                }
-                $data['event'] = $event;
-            } else {
-                abort(404);
+            if (!Auth::check()) {
+                Auth::login(SingletonUser::getUser());
             }
+            $data['event'] = $event;
+            $data['actionUrl'] = URL::signedRoute('modifyEvent', ['event' => $event]);
         }
 
         return view('welcome', $data);
@@ -51,6 +49,7 @@ class WebController extends Controller
 	 * @throws \Illuminate\Validation\ValidationException
 	 */
 	public static function modifyEvent(Request $request, Event $event) {
+
         if ($request->submit == 'delete') {
             return EventController::remove($request, $event);
         } else {

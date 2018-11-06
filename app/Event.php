@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
@@ -49,27 +48,6 @@ class Event extends Model
 	 * @var string|null
 	 */
 	public $raw_token = null;
-
-	/**
-	 * Hashes the edit_token
-	 * @throws \Exception
-	 */
-	public function beforeSave(): void {
-	    if (is_null($this->edit_token)) {
-		    $token = static::generateToken();
-	        $this->edit_token = Hash::make($token);
-	        $this->raw_token = $token;
-        }
-    }
-
-	/**
-	 * @param int $length
-	 * @return string
-	 * @throws \Exception
-	 */
-	public static function generateToken(int $length = 20): string {
-		return bin2hex(random_bytes($length));
-    }
 
 	/**
 	 * @return string

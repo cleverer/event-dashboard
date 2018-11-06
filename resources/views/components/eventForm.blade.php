@@ -1,6 +1,5 @@
-<form method="POST" id="event-form" action="{{ isset($event) ? '/event/'.$event->id : '/events' }}">
+<form method="POST" id="event-form" action="{{ $actionUrl }}">
     @csrf
-    @editToken
 	<div class="row">
 		<div class="col-sm-8">
 			<div class="row">
