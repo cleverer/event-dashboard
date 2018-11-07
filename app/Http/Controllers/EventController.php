@@ -55,7 +55,6 @@ class EventController extends Controller
 	 * @param Request $request
 	 * @param Event $event
 	 * @return Event|\Illuminate\Http\RedirectResponse
-	 * @throws AuthenticationException
 	 * @throws \Illuminate\Validation\ValidationException
 	 */
 	public static function update(Request $request, Event $event) {
@@ -72,7 +71,6 @@ class EventController extends Controller
 	 * @param Request $request
 	 * @param Event $event
 	 * @return Event|\Illuminate\Http\RedirectResponse
-	 * @throws AuthenticationException
 	 * @throws \Exception
 	 */
 	public static function remove(Request $request, Event $event) {

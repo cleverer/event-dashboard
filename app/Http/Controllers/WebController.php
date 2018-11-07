@@ -47,6 +47,7 @@ class WebController extends Controller
 	 * @return Event|\Illuminate\Http\RedirectResponse
 	 * @throws \Illuminate\Auth\AuthenticationException
 	 * @throws \Illuminate\Validation\ValidationException
+	 * @throws \Exception
 	 */
 	public static function modifyEvent(Request $request, Event $event) {
 
