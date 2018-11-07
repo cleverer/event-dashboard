@@ -13,12 +13,13 @@
 
 Route::get('/', 'WebController@home')->name('home');
 Route::get('/login', 'WebController@login')->name('login');
-Route::get('/event/{event}', 'WebController@home')->name('event');
+Route::get('/event/{event}', 'WebController@home')->name('event')->middleware('signed');
 
 Route::post('/login/status', 'LoginController@check');
 Route::post('/login', 'LoginController@login');
 
+Route::post('/event/{event}', 'WebController@modifyEvent')->name('modifyEvent')->middleware('signed');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::post('/events', 'EventController@store');
-    Route::post('/event/{event}', 'WebController@modifyEvent');
 });
