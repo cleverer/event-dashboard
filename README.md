@@ -1,6 +1,8 @@
 # event-dashboard
 A simple dashboard to publish events.
 
+You can find a running version on https://rover.pfadiwinti.ch/.
+
 ## Requirements
 - [composer](https://getcomposer.org)
 - npm ([node.js](https://nodejs.org/))
