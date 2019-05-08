@@ -1,0 +1,39 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: frontend
+    image: node:8.1.2
+    commands:
+      - node -v
+      - npm -v
+      - yarn --version
+      - yarn config set cache-folder .yarn-cache
+      - yarn install
+      - yarn run production
+
+  - name: backend
+    image: laradock/workspace:2.2-7.2
+    environment:
+      DB_HOST: "database"
+      DB_DATABASE: "test"
+      DB_USERNAME: "root"
+      DB_PASSWORD: ""
+    commands:
+      - php -v
+      - composer -V
+      - cp .env.example .env
+      - composer install --prefer-dist
+      - php artisan key:generate
+      - php artisan migrate
+      - ./vendor/bin/phpunit
+
+services:
+  - name: database
+    image: mariadb
+    ports:
+      - 3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "test"
+
